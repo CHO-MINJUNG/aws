@@ -8,7 +8,7 @@ const app = express();
 
 // 서버에 속성(변수)를 심어주는 것 port라는 이름에 3000값 지정
 // 전역 변수 같은 느낌
-app.set('port', process.env.PORT || 3000)
+app.set('port', 3000)
 
 
 
