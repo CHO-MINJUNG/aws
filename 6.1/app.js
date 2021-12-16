@@ -5,7 +5,6 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
-const multer = require('multer');
 const app = express();
 
 // 서버에 속성(변수)를 심어주는 것 port라는 이름에 3000값 지정
