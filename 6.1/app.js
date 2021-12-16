@@ -4,31 +4,13 @@ const e = require('express');
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
-const session = require('express-session');
 const app = express();
 
 // 서버에 속성(변수)를 심어주는 것 port라는 이름에 3000값 지정
 // 전역 변수 같은 느낌
 app.set('port', process.env.PORT || 3000)
 
-// 요청과 응답을 기록하는 라우터, 번호, 초, 바이트
-app.use(morgan('dev'));
-// app.use(morgan('combined'));
-// 배포할 때는 combined로 사용
 
-// 쿠키를 알아서 parsing해줌 json형식으로
-app.use(cookieParser())
-app.use(session({
-    resave: false,
-    saveUninitialized: false,
-    secret: '',
-    cookie:{
-        httpOnly: true,
-    },
-    // secret으로 서명되어졌기 때문에 밑에 값은 읽을 수 없는
-    // 값으로 되어 있음
-    name: 'connect.sid'
-}))
 
 // 데이터를 알아서 parsing해줌
 // json의 경우 알아서 parsing
@@ -52,22 +34,6 @@ app.use('/about',(req, res, next) => {
     console.log('모든 요청에 실행하고 싶어요');
     next();
 })
-app.get('/', (req, res)=>{
-    req.cookies
-    // 쿠키 암호화 하는 경우
-    req.signedCookies;
-    res.sendFile(path.join(__dirname, 'index.html'));
-
-    res.cookie('name', encodeURIComponent(name),{
-        expires: new Date(),
-        httpOnly: true,
-        path: '/',
-    })
-    res.clearCookie('name', encodeURIComponent(name),{
-        httpOnly: true,
-        path: '/',
-    })
-});
 
 app.get('/about', (req, res)=>{
     res.send('안녕 나는 어바웃');
